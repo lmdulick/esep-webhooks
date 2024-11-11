@@ -1,6 +1,5 @@
 using Amazon.Lambda.Core;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Text;
 
 
@@ -20,6 +19,8 @@ public class Function
     /// <returns></returns>
     public string FunctionHandler(string input, ILambdaContext context)
     {
+        context.Logger.LogInformation($"FunctionHandler received: {input}");
+
         dynamic json = JsonConvert.DeserializeObject<dynamic>(input.ToString());
         string payload = $"{{'text':'Issue Created: {json.issue.html_url}'}}";
         
